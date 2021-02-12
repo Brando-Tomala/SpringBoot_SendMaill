@@ -56,7 +56,7 @@ public class SendMailService {
 
 		        
 		        FileSystemResource fileSystem
-		                = new FileSystemResource(new File("C:\\Users\\brand\\OneDrive\\Pictures\\fondos\\rick-morty.jpeg"));
+		                = new FileSystemResource(new File("FILEPATH"));
 
 		        mimeMessageHelper.addAttachment(fileSystem.getFilename(),
 		                fileSystem);
