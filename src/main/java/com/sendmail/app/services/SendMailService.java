@@ -19,17 +19,14 @@ public class SendMailService {
 
 	@Value(value = "${spring.mail.username}")
 	private String fromMail;
-
-	String variable="Prueba1";
 	
 
 	@Autowired
 	private JavaMailSender mailSender;
 
 
-
 	public String sendSimpleMail(FormatMail mail) {
-		String resp="Ok";
+		String response="Ok";
 		try {
 			SimpleMailMessage mailMessage= new SimpleMailMessage();
 			mailMessage.setFrom(fromMail);
@@ -40,10 +37,9 @@ public class SendMailService {
 			mailSender.send(mailMessage);
 
 		}catch (Exception e) {
-			resp = "Error";
+			response = "Error";
 		}
-		System.out.println(variable);
-		return resp;
+		return response;
 	}
 
 
