@@ -16,13 +16,18 @@ import com.sendmail.app.model.FormatMail;
 
 @Service
 public class SendMailService {
-	
+
 	@Value(value = "${spring.mail.username}")
 	private String fromMail;
+
+	String variable="Prueba1";
 	
+
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
+
+
 	public String sendSimpleMail(FormatMail mail) {
 		String resp="Ok";
 		try {
@@ -31,44 +36,45 @@ public class SendMailService {
 			mailMessage.setTo(mail.getToMail());
 			mailMessage.setSubject(mail.getSubject());
 			mailMessage.setText(mail.getBody());
-			
+
 			mailSender.send(mailMessage);
-			
+
 		}catch (Exception e) {
 			resp = "Error";
 		}
+		System.out.println(variable);
 		return resp;
 	}
-	
-	
+
+
 	public String sendAttachmentMail(FormatMail mail) {
 		String resp="Ok";
 		try {
-			 MimeMessage mimeMessage = mailSender.createMimeMessage();
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
 
-		        MimeMessageHelper mimeMessageHelper
-		                = new MimeMessageHelper(mimeMessage, true);
+			MimeMessageHelper mimeMessageHelper
+			= new MimeMessageHelper(mimeMessage, true);
 
-		        mimeMessageHelper.setFrom(fromMail);
-		        mimeMessageHelper.setTo(mail.getToMail());
-		        mimeMessageHelper.setText(mail.getBody());
-		        mimeMessageHelper.setSubject(mail.getSubject());
+			mimeMessageHelper.setFrom(fromMail);
+			mimeMessageHelper.setTo(mail.getToMail());
+			mimeMessageHelper.setText(mail.getBody());
+			mimeMessageHelper.setSubject(mail.getSubject());
 
-		        
-		        FileSystemResource fileSystem
-		                = new FileSystemResource(new File("FILEPATH"));
 
-		        mimeMessageHelper.addAttachment(fileSystem.getFilename(),
-		                fileSystem);
+			FileSystemResource fileSystem
+			= new FileSystemResource(new File("FILEPATH"));
 
-		        mailSender.send(mimeMessage);
-		        System.out.println("Mail Send...");
-			
+			mimeMessageHelper.addAttachment(fileSystem.getFilename(),
+					fileSystem);
+
+			mailSender.send(mimeMessage);
+			System.out.println("Mail Send...");
+
 		}catch (Exception e) {
 			resp = "Error";
 		}
 		return resp;
 	}
-	
+
 
 }
